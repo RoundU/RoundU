@@ -35,9 +35,14 @@ class MyListener(StreamListener):
     def on_data(self, data):
         try:
             with open(self.outfile, 'a') as f:
-                f.write(data)
-                print(data)
+                f.write(data.extended_tweet["full_text"])
                 return True
+
+        except AttributeError:
+            with open(self.outfile, 'a') as f:            
+                f.write(data)
+                return True
+
         except BaseException as e:
             print("Error on_data: %s" % str(e))
             time.sleep(5)
