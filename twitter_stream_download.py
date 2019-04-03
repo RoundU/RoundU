@@ -8,6 +8,7 @@ import string
 import config
 import json
 
+barcelona = [2.090903, 41.335847, 2.220298, 41.461651] #Venid a verla, es una ciudad muy bonita!
 
 def get_parser():
     """Get parser for command line arguments."""
@@ -90,4 +91,5 @@ if __name__ == '__main__':
     api = tweepy.API(auth)
 
     twitter_stream = Stream(auth, MyListener(args.data_dir, args.query))
-    twitter_stream.filter(track=[args.query])
+#twitter_stream.filter(locations=barcelona)
+    twitter_stream.filter(locations = barcelona, track= [args.query])
