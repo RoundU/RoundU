@@ -1,6 +1,6 @@
 data/stream_barcelona - Copy.json
 data/stream_barcelona1.json
 data/stream_bot.json
-__pycache__
-.ipynb_checkpoints
-.vscode
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
