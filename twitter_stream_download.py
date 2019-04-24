@@ -62,7 +62,7 @@ class MyListener(StreamListener):
                 print(json_data['text'])
 
                 #Para guardarlo en .csv
-                string_para_guardar = '\n' + stringTextoParaSql + separador + str(json_data['user']['id']) + separador + str(strftime("%Y-%m-%d %H:%M:%S", gmtime()))#datetime.datetime.now()
+                string_para_guardar = '\n' + stringTextoParaSql + separador + str(json_data['user']['id']) + separador + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())) + separador + json_data["id"]#datetime.datetime.now()
                 f.write(string_para_guardar)
 
                 return True
@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
 #Para crear el fichero
     with open("%s/stream_%s.csv" % (args.data_dir, format_filename(args.query)), 'a') as f:
-        f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion')
+        f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion'+separador+'IdTweet')
 
     twitter_stream = Stream(auth, MyListener(args.data_dir, args.query))
 #twitter_stream.filter(locations=barcelona)

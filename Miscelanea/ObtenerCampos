@@ -1,18 +1,18 @@
-#id_twee
+#IdTweet
 json_data["id"]
-#Nombre_Usuario
+#NombreUsuario
 json_data["user"]["screen_name"]
-#id usuario
+#IdUsuario
 json_data["user"]["id"]
-#timestamp
+#FechaCreacionTweet
 json_data["created_at"]
-#texto
-    if tweet['truncated'] then tweet['extended_tweet']['full_text'] else tweet['text']
-#hastags
-    tweet['entities']['hastags'].concat(' ')
-#url
-    tweet['entities']['urls'][0]['url']
-#retweet
+#Texto
+    if json_data['truncated'] then json_data['extended_tweet']['full_text'] else json_data['text']
+#Hastags
+    json_data['entities']['hastags'].concat(' ')
+#Url
+    json_data['entities']['urls'][0]['url']
+#Retweet
     json_data["retweeted_status"]["extended_tweet"]["full_text"]
 
 #Fav
