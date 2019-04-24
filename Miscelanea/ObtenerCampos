@@ -1,0 +1,18 @@
+#id mensaje
+json_data["id"]
+#Nombre_Usuario
+json_data["user"]["screen_name"]
+#id usuario
+json_data["user"]["id"]
+#timestamp
+json_data["created_at"]
+#texto
+    if tweet['truncated'] then tweet['extended_tweet']['full_text'] else tweet['text']
+#hastags
+    tweet['entities']['hastags'].concat(' ')
+#url
+    tweet['entities'][]
+#retweet
+
+
+#Fav

@@ -4,3 +4,4 @@ data/stream_bot.json
 __pycache__/
 .ipynb_checkpoints/
 .vscode/
+Algo.sql
