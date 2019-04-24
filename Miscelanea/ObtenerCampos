@@ -20,4 +20,16 @@ json_data["created_at"]
 
 #funcion de carga
 if "RT @" in json_data["text]:
+    if json_data["retweeted_status"]["truncated"]:
+        SQL--> json_data["retweeted_status"]["extended_tweet"]["full_text"]
+    else:
+        SQL--> json_data["retweeted_status"]["text"]
+else:
+    if json_data["truncated"]:
+        SQL--> ["extended_tweet"]["full_text"]
+    else:
+        SQL-->json_data["text"]
+    
+    
+    
     
