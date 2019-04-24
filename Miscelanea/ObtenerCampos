@@ -1,4 +1,4 @@
-#id mensaje
+#id_twee
 json_data["id"]
 #Nombre_Usuario
 json_data["user"]["screen_name"]
@@ -11,8 +11,13 @@ json_data["created_at"]
 #hastags
     tweet['entities']['hastags'].concat(' ')
 #url
-    tweet['entities'][]
+    tweet['entities']['urls'][0]['url']
 #retweet
-
+    json_data["retweeted_status"]["extended_tweet"]["full_text"]
 
 #Fav
+
+
+#funcion de carga
+if "RT @" in json_data["text]:
+    
