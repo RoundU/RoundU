@@ -11,6 +11,7 @@ import configLocal
 import json
 import datetime
 from time import gmtime, strftime
+from pathlib import Path
 import os
 
 separador = '¿¡@(,'
