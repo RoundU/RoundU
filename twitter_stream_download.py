@@ -6,24 +6,25 @@ import time
 import argparse
 import string
 import config
-import json
 import pyodbc 
+import configLocal
+import json
 import datetime
 from time import gmtime, strftime
 from pathlib import Path
 import os
 
 separador = '¿¡@(,'
-directorioArchivo = str(Path().absolute()) + "\\data"
+directorioArchivo = configLocal.directorioArchivo
 queryParaTwitter = 'e'
 
 
 
-server = 'marcserver.database.windows.net' 
-database = 'RoundU_DB' 
-username = 'marc' 
-password = 'Barcelona2019' 
-cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password, autocommit=True)
+server = configLocal.server
+database = configLocal.database
+username = configLocal.username
+password = configLocal.password
+cnxn = configLocal.cnxn
 cursor = cnxn.cursor()
 
 
