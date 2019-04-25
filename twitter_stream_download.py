@@ -10,6 +10,7 @@ import json
 import pyodbc 
 import datetime
 from time import gmtime, strftime
+import os
 
 separador = '¿¡@(,'
 directorioArchivo = '/home/marc/Escritorio/'
@@ -123,10 +124,17 @@ if __name__ == '__main__':
     auth.set_access_token(config.access_token, config.access_secret)
     api = tweepy.API(auth)
 
+    exists = os.path.isfile("%s/stream_%s.csv" % (args.data_dir, format_filename(args.query)))
+    if not exists:
+        with open("%s/stream_%s.csv" % (args.data_dir, format_filename(args.query)), 'a') as f:
+            f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion'+separador+'IdTweet'+separador+'NombreUsuario'+separador+
+            'FechaCreacionTweet'+separador+'Hashtags'+separador+'Url')
+        
+
 #Para crear el fichero
-    with open("%s/stream_%s.csv" % (args.data_dir, format_filename(args.query)), 'a') as f:
-        f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion'+separador+'IdTweet'+separador+'NombreUsuario'+separador+
-        'FechaCreacionTweet'+separador+'Hashtags'+separador+'Url')
+    # with open("%s/stream_%s.csv" % (args.data_dir, format_filename(args.query)), 'a') as f:
+    #     f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion'+separador+'IdTweet'+separador+'NombreUsuario'+separador+
+    #     'FechaCreacionTweet'+separador+'Hashtags'+separador+'Url')
 
     twitter_stream = Stream(auth, MyListener(args.data_dir, args.query))
 #twitter_stream.filter(locations=barcelona)
