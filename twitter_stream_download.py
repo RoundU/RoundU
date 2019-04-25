@@ -137,6 +137,7 @@ if __name__ == '__main__':
     #     f.write('Texto'+ separador+'IdUsuario'+ separador +'FechaCreacion'+separador+'IdTweet'+separador+'NombreUsuario'+separador+
     #     'FechaCreacionTweet'+separador+'Hashtags'+separador+'Url')
 
-    twitter_stream = Stream(auth, MyListener(args.data_dir, args.query))
+twitter_stream = Stream(auth, MyListener(args.data_dir, args.query))
 #twitter_stream.filter(locations=barcelona)
-    twitter_stream.filter(locations = barcelona, track= [args.query], languages='es')
+twitter_stream.filter(locations = barcelona, track= [args.query], languages=['es'])
+#twitter_stream.filter(locations = barcelona, track= [args.query])
