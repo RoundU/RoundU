@@ -1,12 +1,28 @@
-#IdTweet
+*#IdTweet
 json_data["id"]
-#NombreUsuario
+
+**#NombreUsuario
 json_data["user"]["screen_name"]
-#IdUsuario
+
+**#IdUsuario
 json_data["user"]["id"]
-#FechaCreacionTweet
+
+**#desc_Usuario
+json_data["user"]["description"]
+
+**#user_siguiendo
+json_data["user"]["friends_count"]
+
+**#user_seguidores
+json_data["user"]["followers_count"]
+
+**#user_tweets
+json_data["user"]["statuses_count"]
+
+*#FechaCreacionTweet
 json_data["created_at"]
-#Texto
+
+*#Texto
     if json_data['truncated'] then json_data['extended_tweet']['full_text'] else json_data['text']
 #Hastags
     json_data['entities']['hastags'].concat(' ')
