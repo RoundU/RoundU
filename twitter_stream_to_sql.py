@@ -59,12 +59,16 @@ def data_extract(json):
 class MyListener(StreamListener):
     def on_connect(self):
         print("Conected!")
-    def onjson(self, data):
+    def on_status(self, data):
+        
         try:
-            json = json.loads(data)
-            stringTextoParaSql = json['text'].replace("\'", "\"").replace("\n", " ")
-            textoEnSql = "INSERT INTO Mensaje (Texto, Usuario, Enlace) VALUES (REPLACE(REPLACE(REPLACE('"+stringTextoParaSql+"', '!', ''), '#', ''), '$', ''), " + str(json['user']['id']) +", NULL)"
-            cursor.execute(textoEnSql)
+            json = data_extract(json.loads(data))
+            txt_SQL = data_extract(json)
+                
+#            stringTextoParaSql = json['text'].replace("\'", "\"").replace("\n", " ")
+#            textoEnSql = "INSERT INTO Mensaje (Texto, Usuario, Enlace) VALUES (REPLACE(REPLACE(REPLACE('"+stringTextoParaSql+"', '!', ''), '#', ''), '$', ''), " + str(json['user']['id']) +", NULL)"
+            cursor.execute('INSERT INTO dbo.msg VALUES ({}, {}, {}, N {}'.format(txt_SQL[0], txt_SQL[1], txt_SQL[2], txt_SQL[3]))
+            cursor.execute('INSERT INTO dbo.users VALUES (N {}, N {}, N {}, {}, {}, {}'.format(txt_SQL[4], txt_SQL[5], txt_SQL[6], txt_SQL[7],txt_SQL[8], txt_SQL[9] ))
 
             print(json['text'])
 
