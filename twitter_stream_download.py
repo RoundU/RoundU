@@ -14,7 +14,7 @@ from time import gmtime, strftime
 from pathlib import Path
 import os
 
-separador = '¿¡@(,'
+separador = 'ef5r64i'
 directorioArchivo = configLocal.directorioArchivo
 queryParaTwitter = 'e'
 
@@ -58,21 +58,35 @@ class MyListener(StreamListener):
             json_data = json.loads(data)
             with open(self.outfile, 'a') as f:
                 #Para meterlo en la base de datos
-                stringTextoParaSql = json_data['text'].replace("\'", "\"").replace("\n", " ")
-                textoEnSql = "INSERT INTO Mensaje (Texto, Usuario, Enlace) VALUES (REPLACE(REPLACE(REPLACE('"+stringTextoParaSql+"', '!', ''), '#', ''), '$', ''), " + str(json_data['user']['id']) +", NULL)"
-                cursor.execute(textoEnSql)
+                if "RT @" in json_data["text"]:
+                    if json_data["retweeted_status"]["truncated"]:
+                        stringTextoParaSql = json_data["retweeted_status"]["extended_tweet"]["full_text"]
+                        #stringUrls = json_data["retweeted_status"]["entities"]["urls"][0]['display_url'] if len(json_data["retweeted_status"]["entities"]["urls"]) > 0 else ""
+                    else:
+                        stringTextoParaSql = json_data["retweeted_status"]["text"]
+                        #stringUrls = json_data["retweeted_status"]['entities']['urls'][0]['display_url'] if len(json_data["retweeted_status"]['entities']['urls']) > 0 else ""
+                else:
+                    if json_data["truncated"]:
+                        stringTextoParaSql = json_data["extended_tweet"]["full_text"]
+                        #stringUrls = json_data["extended_entities"]['media'][0]['display_url'] if len(json_data["extended_entities"]['media']) > 0 else ""
+                    else:
+                        stringTextoParaSql = json_data["text"]
+                        #stringUrls = json_data['entities']['urls']
+                stringTextoParaSql = stringTextoParaSql.replace("\'", "\"").replace("\n", " ")
+                # textoEnSql = "INSERT INTO Mensaje (IdTweet, NombreUsuario, IdUsuario, ) VALUES (REPLACE(REPLACE(REPLACE('"+stringTextoParaSql+"', '!', ''), '#', ''), '$', ''), " + str(json_data['user']['id']) +", NULL)"
+                # cursor.execute(textoEnSql)
 
-                print(json_data['text'])
+                print(stringTextoParaSql)
 
                 #Para guardarlo en .csv
-                string_para_guardar = '\n' + stringTextoParaSql + separador
-                + str(json_data['user']['id']) + separador
-                + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())) + separador
-                + json_data["id"] + separador
-                + json_data["user"]["screen_name"] + separador
-                + json_data["created_at"] + separador
-                + ' '.join([a['text'] for a in json_data['entities']['hastags']]) + separador
-                + json_data['entities']['urls'][0]['url']
+                string_para_guardar = '\n' + stringTextoParaSql + separador\
+                + str(json_data['user']['id']) + separador\
+                + str(strftime("%Y-%m-%d %H:%M:%S", gmtime())) + separador\
+                + str(json_data["id"]) + separador\
+                + json_data["user"]["screen_name"] + separador\
+                + str(json_data["created_at"]) + separador\
+                + ' '.join([a['text'] for a in json_data['entities']['hashtags']]) + separador\
+                + ""#stringUrls#json_data['entities']['urls'][0]['url'] if len(json_data['entities']['urls']) > 0 else ""
                 f.write(string_para_guardar)
 
                 return True
