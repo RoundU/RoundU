@@ -50,8 +50,8 @@ def data_extract(json_):
     users_followers = json_["user"]["followers_count"]
     user_tweets = json_["user"]["statuses_count"]
 
-    return (str(msg_id), str(msg_users_id), str(msg_timestamp), msg_text, 
-    users_name, str(users_id), str(users_desc), users_follows, users_followers, user_tweets)
+    return (str(msg_id), str(msg_users_id), str(msg_timestamp), str(msg_text), 
+    str(users_name), str(users_id), str(users_desc), users_follows, users_followers, user_tweets)
 
 
 
@@ -69,8 +69,8 @@ class MyListener(StreamListener):
                 
 #            stringTextoParaSql = json['text'].replace("\'", "\"").replace("\n", " ")
 #            textoEnSql = "INSERT INTO Mensaje (Texto, Usuario, Enlace) VALUES (REPLACE(REPLACE(REPLACE('"+stringTextoParaSql+"', '!', ''), '#', ''), '$', ''), " + str(json['user']['id']) +", NULL)"
-            cursor.execute('INSERT INTO dbo.msg VALUES ({}, {}, N "{}", N "{}"'.format(txt_SQL[0], txt_SQL[1], txt_SQL[2], txt_SQL[3]))
-            cursor.execute('INSERT INTO dbo.users VALUES (N "{}", N "{}", N "{}", {}, {}, {}'.format(txt_SQL[4], txt_SQL[5], txt_SQL[6], txt_SQL[7],txt_SQL[8], txt_SQL[9] ))
+            cursor.execute("INSERT INTO dbo.msg VALUES ('{}', '{}', '{}', '{}')".format(txt_SQL[0], txt_SQL[1], txt_SQL[2], txt_SQL[3]))
+            cursor.execute("INSERT INTO dbo.users VALUES ('{}', '{}', '{}', '{}', '{}', '{}')".format(txt_SQL[4], txt_SQL[5], txt_SQL[6], txt_SQL[7],txt_SQL[8], txt_SQL[9] ))
 
             print(txt_SQL[3])
             print()
