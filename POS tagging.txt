@@ -10,6 +10,7 @@ FW: Foreign word
 
 IN: Preposition or subordinating conjunction
 
+JJ: Adjective
 
 VP: Verb Phrase
 
