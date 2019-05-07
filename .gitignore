@@ -6,3 +6,6 @@ __pycache__/
 .vscode/
 Algo.sql
 configLocal.py
+AlgoritmosSobreTexto.py
+AlgoritmosSobreTexto2.py
+PruebaGenSim.py
