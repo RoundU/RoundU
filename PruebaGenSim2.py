@@ -1,13 +1,22 @@
 import pandas as pd
 import gensim as gns
+import pickle
 
 import nltk
 #nltk.download()
 lexematizacion = pd.read_csv("LexemasEspanol", sep="\t", header=None, names=['lexema', 'palabra'])
+lexemasFrecuentes = []
 
 def lemmatize_stemming(text):
+    frecuente = False
+    for lexemaFrecuente in lexemasFrecuentes:
+        if text == lexemaFrecuente[1]:
+            return lexemaFrecuente[0]
+    if not frecuente:
+        lexemaBuscado = lexematizacion.loc[lexematizacion["palabra"] == text].iloc[0].get("lexema") if sum(lexematizacion["palabra"] == text) > 0 else text
+        lexemasFrecuentes.append([lexemaBuscado, text])
     #lexematizacion = pd.read_csv("LexemasEspanol", sep="\t", header=None, names=['lexema', 'palabra'])
-    return lexematizacion.loc[lexematizacion["palabra"] == text].iloc[0].get("lexema") if sum(lexematizacion["palabra"] == text) > 0 else text
+    return lexemaBuscado#lexematizacion.loc[lexematizacion["palabra"] == text].iloc[0].get("lexema") if sum(lexematizacion["palabra"] == text) > 0 else text
     #return stemmer.stem(WordNetLemmatizer().lemmatize(text, pos='v'))
 
 # Tokenize and lemmatize
@@ -21,7 +30,7 @@ def preprocess(text):
             result.append(lematizado)
             resultString += " " + lematizado
             
-    return result
+    return (result, resultString)
 
 def toDictionary(lista):
     diccionario = {}
@@ -31,6 +40,16 @@ def toDictionary(lista):
         else:
             diccionario[elemento] = 1
     return diccionario
+
+def save_object(obj, filename):
+    with open(filename, 'wb') as output:  # Overwrites any existing file.
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
+def load_object(filename):
+    with open(filename, 'rb') as config_dictionary_file:
+        # Step 3
+        config_dictionary = pickle.load(config_dictionary_file)
+    return config_dictionary
 
 texts = ["Se nos aseguro que para 2020 ya no habría coches diesel, ya que más de 100.000 personas mueren al año por contaminación, estamos ya a las puertas de los felices años 20 y la única medida que se le ocurre es subir 3.8 décimas el diesel. Señor Sánchez, no queremos ninguna subida ridícula del diesel, queremos que solo los camiones y furgonetas puedan usar el diesel y que este se prohíba para los turismos. Y si por ley no puede prohibir los vehículos diesel, se sube a 20 € el litro para todo aquel que no sea camionero o transportista. Y se acaba con la contaminación y polución que producen estos vehículos.",
         "Pues resulta que tengo pensado irme del 24 de junio al 1 de julio a Venecia. El vuelo es directo y está muy bien de precio. Además es en familia y hace mucho que no hacemos uno juntos, asi que tengo especiales ganas. El día 24 llegaríamos a Venecia a las 11 de la noche, con lo cual ese día ya sería perdido totalmente. En cambio, el día 1 el avión sale a las 5 de la tarde. Obviamente mi intención no es estar todos los días en Venecia, sino ir también o a Verona y ver también el Lago di Garda (me dijeron que es una pasada) o bien ir a Florencia. Si me comentais que da tiempo para ir a los dos sitios, sería perfecto. Me gustaría que me aconsejaseis al respecto sobre que itinerario realizar, así como donde alojarse, tema de trenes, etc.",
@@ -45,7 +64,8 @@ texts = ["Se nos aseguro que para 2020 ya no habría coches diesel, ya que más 
 
 listaDeListaDeTokens = [[]]
 for text in texts:
-    listaDeListaDeTokens.append(preprocess(text))
+    (vector, cadena) = preprocess(text)
+    listaDeListaDeTokens.append(vector)
 
 print(listaDeListaDeTokens)
 
@@ -65,16 +85,41 @@ print(bow_corpus)
 #                                    passes = 10,
 #                                    workers = 2)
 
-lda_model = gns.models.LdaModel(bow_corpus, num_topics=2)
+lda_model = gns.models.LdaModel(bow_corpus, num_topics=4, id2word=dictionary)
 
-# from gensim.test.utils import datapath
-# temp_file = datapath("/home/marc/Escritorio/LDAModel")
-# lda_model.save(temp_file)
+from gensim.test.utils import datapath
+temp_file = datapath("/home/marc/Escritorio/LDAModel")
+lda_model.save(temp_file)
 
-print(lda_model.get_term_topics())
-print(lda_model.get_topic_terms())
+# sample usage
+temp_file2 = datapath("/home/marc/Escritorio/LDAModelPickle")
+save_object((bow_corpus, dictionary), temp_file2)
 
-print(lda_model.get_topics())
-print(lda_model.get_document_topics())
-print(lda_model.top_topics())
-print(lda_model.top())
+lda = gns.models.LdaModel.load(temp_file)
+
+(bow_corpus_pikle, dictionary_pikle) = load_object(temp_file2)
+
+inferidos = lda[bow_corpus]
+inferidos
+
+
+new_doc = ['Estoy buscando curro de algo porque no he estudiado']
+listaDeListaDeTokens2 = [[]]
+for text in new_doc:
+    (vector, cadena) = preprocess(text)
+    listaDeListaDeTokens2.append(vector)
+
+dictionary2 = gns.corpora.Dictionary(listaDeListaDeTokens2)
+
+bow_corpus2 = [dictionary2.doc2bow(listaDeTokens) for listaDeTokens in listaDeListaDeTokens2]
+
+segundotexto = lda_model.get_document_topics(bow_corpus2[1])
+print(segundotexto)
+
+# print(lda_model.get_term_topics())
+# print(lda_model.get_topic_terms())
+
+# print(lda_model.get_topics())
+# print(lda_model.get_document_topics())
+# print(lda_model.top_topics())
+# print(lda_model.top())
