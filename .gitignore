@@ -12,3 +12,4 @@ PruebaGenSim.py
 WORD2VEC-Twitter-Espa_ol_para_Latinoam_rica__Espa_a_y_Estados_Unidos2.csv
 data/giga-model
 data/giga-model.vectors.npy
+data/model
