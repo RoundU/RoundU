@@ -15,3 +15,11 @@ data/giga-model.vectors.npy
 data/model
 data/VS_data.txt
 data/model
+data/checkpoint
+data/events.out.tfevents.1559061667.ALONSOGA4
+data/metadata.tsv
+data/model.ckpt.data-00000-of-00001
+data/model.ckpt.index
+data/model.ckpt.meta
+data/projector_config.pbtxt
+metadata.tsv
