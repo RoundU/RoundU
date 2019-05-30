@@ -23,3 +23,6 @@ data/model.ckpt.index
 data/model.ckpt.meta
 data/projector_config.pbtxt
 metadata.tsv
+data/bha_corpus.txt
+data/euc_corpus.txt
+data/bha_corpus.txt
