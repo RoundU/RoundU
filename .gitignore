@@ -26,3 +26,6 @@ metadata.tsv
 data/bha_corpus.txt
 data/euc_corpus.txt
 data/bha_corpus.txt
+data/bha_corpus.txt
+*.txt
+data/bha_corpus.txt
