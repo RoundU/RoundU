@@ -25,5 +25,15 @@ Python 3.7
 * matplotlib.pyplot
 * scipy.stats
 * matplotlib.pyplot
+* tensorflow
+* sklearn.manifold
+* collections
+* six.moves
+* multiprocessing
+* sys
+* io
+* json
+* string
+* nltk.corpus
 
 * ODBC driver for SQL Server (https://go.microsoft.com/fwlink/?linkid=833576)
