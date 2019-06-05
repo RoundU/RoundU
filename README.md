@@ -2,6 +2,8 @@
 
 Libraries and drivers needed to run this project:
 
+Python 3.7
+
 * tweepy
 
 * time
