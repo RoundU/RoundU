@@ -5,7 +5,6 @@ __pycache__/
 .ipynb_checkpoints/
 .vscode/
 Algo.sql
-configLocal.py
 AlgoritmosSobreTexto.py
 AlgoritmosSobreTexto2.py
 PruebaGenSim.py
