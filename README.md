@@ -14,5 +14,6 @@ Python 3.7
 * datetime
 * pathlib 
 * os
+* pyodbc
 
 * ODBC driver for SQL Server (https://go.microsoft.com/fwlink/?linkid=833576)
