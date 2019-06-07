@@ -1,39 +1,7 @@
 # RoundU
 
-Libraries and drivers needed to run this project:
+Libraries and drivers needed to run this project, saved in libraries.txt
 
-Python 3.7
+models and data at: https://drive.google.com/open?id=1UZ0rrsbIa4L7Oj9TTSkjcCBaQHyoNN5U
 
-* tweepy
-
-* time
-* string
-* config
-* pyodbc 
-* json
-* datetime
-* pathlib 
-* os
-* pyodbc
-* gensim
-* pandas
-* re
-* numpy
-* tqdm
-* scipy.spatial
-* seaborn
-* matplotlib.pyplot
-* scipy.stats
-* matplotlib.pyplot
-* tensorflow
-* sklearn.manifold
-* collections
-* six.moves
-* multiprocessing
-* sys
-* io
-* json
-* string
-* nltk.corpus
-
-* ODBC driver for SQL Server (https://go.microsoft.com/fwlink/?linkid=833576)
+Project memory: memoria.pdf
