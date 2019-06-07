@@ -4,7 +4,7 @@ Libraries needed to run this project, saved in: [link](https://github.com/RoundU
 
 models and data at [link](https://drive.google.com/open?id=1UZ0rrsbIa4L7Oj9TTSkjcCBaQHyoNN5U)
 
-Project memory: memoria.pdf
+Project memory: RoundU Project - TFM .pdf
 
 To set this project running: 
 * install libraries
