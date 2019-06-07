@@ -55,7 +55,7 @@ Flask-Cors==3.0.7
 funcy==1.12
 future==0.17.1
 gast==0.2.2
-gensim==3.7.2
+gensim==3.7.1
 gevent==1.3.7
 glob2==0.6
 greenlet==0.4.15
